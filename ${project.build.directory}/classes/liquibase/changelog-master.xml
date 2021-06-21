@@ -1,0 +1,102 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="tiagobarbosa02@outlook.com">
+        <preConditions>
+            <not>
+                <tableExists tableName="cliente" />
+            </not>
+        </preConditions>
+        <createTable tableName="cliente">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tipo" type="VARCHAR(2)"/>
+            <column name="nome" type="VARCHAR(200)"/>
+            <column name="endereco" type="VARCHAR(200)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="tiagobarbosa02@outlook.com">
+        <preConditions>
+            <not>
+                <tableExists tableName="cliente_pf" />
+            </not>
+        </preConditions>
+        <createTable tableName="cliente_pf">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cpf" type="VARCHAR(20)"/>
+            <column name="rg" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="tiagobarbosa02@outlook.com">
+        <preConditions>
+            <not>
+                <tableExists tableName="cliente_pj" />
+            </not>
+        </preConditions>
+        <createTable tableName="cliente_pj">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cnpj" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="tiagobarbosa02@outlook.com">
+        <preConditions>
+            <not>
+                <tableExists tableName="conta"/>
+            </not>
+        </preConditions>
+        <createTable tableName="conta">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_cliente" type="BIGINT">
+                <constraints foreignKeyName="fk_id_cliente_referesnces_cliente" referencedTableName="cliente" referencedColumnNames="id"/>
+            </column>
+            <column name="tipo_conta" type="VARCHAR(20)"/>
+            <column name="ag" type="BIGINT"/>
+            <column name="conta" type="BIGINT"/>
+            <column name="saldo" type="DOUBLE"/>
+            <column name="cheque_especial" type="DOUBLE"/>
+            <column name="juros" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="tiagobarbosa02@outlook.com">
+        <preConditions>
+            <not>
+                <tableExists tableName="extrato"/>
+            </not>
+        </preConditions>
+        <createTable tableName="extrato">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_cliente" type="BIGINT">
+                <constraints foreignKeyName="fk_id_cliente_referesnces_cliente" referencedTableName="cliente" referencedColumnNames="id"/>
+            </column>
+            <column name="id_conta" type="BIGINT">
+                <constraints foreignKeyName="fk_id_conta_referesnces_conta" referencedTableName="conta" referencedColumnNames="id"/>
+            </column>
+            <column name="tipo_conta" type="VARCHAR(20)"/>
+            <column name="data" type="DATE"/>
+            <column name="descricao" type="VARCHAR(50)"/>
+            <column name="saldo" type="DOUBLE"/>
+            <column name="valor" type="DOUBLE"/>
+            <column name="novo_saldo" type="DOUBLE"/>
+            <column name="cheque_especial" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+
+
+
+
+</databaseChangeLog>
